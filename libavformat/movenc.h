@@ -29,7 +29,11 @@
 
 #define MOV_FRAG_INFO_ALLOC_INCREMENT 64
 #define MOV_INDEX_CLUSTER_SIZE 1024
-#define MOV_TIMESCALE 1000
+
+// Fixes an apparent seeking issue for certain programs, 600 is Quicktime's recommended default
+// Why FFMPEG set it 1000 as default is unknown
+// https://lists.ffmpeg.org/pipermail/ffmpeg-user/2018-March/039116.html
+#define MOV_TIMESCALE 600
 
 #define RTP_MAX_PACKET_SIZE 1450
 
@@ -163,6 +167,7 @@ typedef struct MOVTrack {
     int pal_done;
 
     int is_unaligned_qt_rgb;
+    int is_wide;
 } MOVTrack;
 
 typedef enum {
